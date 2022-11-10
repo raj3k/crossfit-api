@@ -1,9 +1,9 @@
 import { WorkoutRequestModel, WorkoutResponseModel } from "@/domain/models/workout";
 
 export interface WorkoutRepository {
-    createContact(contact: WorkoutRequestModel): void;
-    deleteContact(id: String): void;
-    updateContact(id: String, data: WorkoutRequestModel): void;
-    getContacts(): Promise<WorkoutResponseModel[]>;
-    getContact(id: String): Promise<WorkoutResponseModel | null>;
+    createWorkout(contact: WorkoutRequestModel): void;
+    deleteWorkout(id: String): void;
+    updateWorkout(id: String, data: WorkoutRequestModel): void;
+    getWorkouts(): Promise<WorkoutResponseModel[]>;
+    getWorkout(id: String): Promise<WorkoutResponseModel | null>;
 }
