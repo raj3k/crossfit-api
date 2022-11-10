@@ -1,0 +1,49 @@
+{
+  "name": "crossfit-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --watchAll --collectCoverage",
+    "dev:build": "tsc",
+    "dev:serve": "tsc-watch --onSuccess \"node ./dist/index.js\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/raj3k/crossfit-api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/raj3k/crossfit-api/issues"
+  },
+  "homepage": "https://github.com/raj3k/crossfit-api#readme",
+  "devDependencies": {
+    "@types/express": "^4.17.14",
+    "@types/jest": "^29.2.2",
+    "@types/node": "^18.11.9",
+    "@types/supertest": "^2.0.12",
+    "@typescript-eslint/eslint-plugin": "^5.42.1",
+    "@typescript-eslint/parser": "^5.42.1",
+    "eslint": "^8.27.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "jest": "^29.3.1",
+    "prettier": "^2.7.1",
+    "supertest": "^6.3.1",
+    "ts-jest": "^29.0.3",
+    "ts-node": "^10.9.1",
+    "tsc-watch": "^5.0.3",
+    "typescript": "^4.8.4"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "module-alias": "^2.2.2"
+  },
+  "_moduleAliases": {
+    "@/data": "dist/data",
+    "@/domain": "dist/domain"
+  }
+}
