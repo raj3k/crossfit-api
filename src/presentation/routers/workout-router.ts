@@ -21,7 +21,7 @@ export default function WorkoutsRouter(
             res.send({
                 status: 'OK', 
                 message: 'Workouts retrieved successfully',
-                data: { workouts }
+                data: workouts
             });
         } catch (error) {
             res.status(500).send({message: 'Error fetching data'});
@@ -35,7 +35,7 @@ export default function WorkoutsRouter(
             res.send({
                 status: 'OK', 
                 message: 'Workout retrieved successfully', 
-                data: { workout }
+                data: workout
             });
         } catch (error) {
             res.status(500).send({message: 'Error fetching data'});
@@ -49,7 +49,7 @@ export default function WorkoutsRouter(
             res.status(201).send({
                 status: 'OK', 
                 message: 'Workout created successfully', 
-                data: { createdWorkout }
+                data: createdWorkout
             });
         } catch (error) {
             res.status(500).send({message: 'Error creating data'});
@@ -63,7 +63,7 @@ export default function WorkoutsRouter(
             res.send({
                 status: 'OK', 
                 message: 'Workout updated successfully', 
-                data: { updatedWorkout }
+                data: updatedWorkout
             });
         } catch (error) {
             res.status(500).send({message: 'Error updating data'});
@@ -82,4 +82,6 @@ export default function WorkoutsRouter(
             res.status(500).send({message: 'Error fetching data'});
         }
     });
+
+    return router;
 }
