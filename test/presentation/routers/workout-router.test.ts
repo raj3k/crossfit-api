@@ -28,7 +28,7 @@ class MockCreateWorkoutUseCase implements CreateWorkoutUseCase {
 }
 
 class MockUpdateWorkoutUseCase implements UpdateWorkoutUseCase {
-    execute(id: String, data: WorkoutRequestModel): void {
+    execute(id: String, data: WorkoutRequestModel): Promise<WorkoutResponseModel | null> {
         throw new Error('Method not implemented.');
     }
 }
