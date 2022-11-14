@@ -1,3 +1,3 @@
 export interface DeleteWorkoutUseCase {
-    execute(id: String): void;
+    execute(id: string): void;
 }

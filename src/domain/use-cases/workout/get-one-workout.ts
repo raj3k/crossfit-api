@@ -9,7 +9,7 @@ export class GetOneWorkout implements GetOneWorkoutUseCase {
         this.workoutRepository = workoutRespository;
     }
     
-    async execute(id: String): Promise<WorkoutResponseModel | null> {
+    async execute(id: string): Promise<WorkoutResponseModel | null> {
         const result = await this.workoutRepository.getWorkout(id);
         return result;
     }
