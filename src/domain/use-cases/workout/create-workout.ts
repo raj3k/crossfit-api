@@ -3,7 +3,7 @@ import { WorkoutRepository } from '@/domain/interfaces/repositories/workout-repo
 import { CreateWorkoutUseCase } from '@/domain/interfaces/use-cases/workout/create-workout-use-case';
 
 export class CreateWorkout implements CreateWorkoutUseCase {
-    workoutRepository: WorkoutRepository
+    private workoutRepository: WorkoutRepository
 
     constructor(workoutRespository: WorkoutRepository) {
         this.workoutRepository = workoutRespository;
