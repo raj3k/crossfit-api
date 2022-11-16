@@ -5,7 +5,7 @@ import { GetOneWorkoutUseCase } from '../../../src/domain/interfaces/use-cases/w
 import { CreateWorkoutUseCase } from '../../../src/domain/interfaces/use-cases/workout/create-workout-use-case';
 import { UpdateWorkoutUseCase } from '../../../src/domain/interfaces/use-cases/workout/update-workout-use-case';
 import { DeleteWorkoutUseCase } from '../../../src/domain/interfaces/use-cases/workout/delete-workout-use-case';
-import WorkoutRouter from '../../../src/presentation/routers/workout-router';
+import { WorkoutsRouter } from '../../../src/presentation/routers/workout-router';
 import server from '../../../src/server';
 
 class MockGetAllWorkoutsUseCase implements GetAllWorkoutsUseCase {
@@ -52,7 +52,7 @@ describe('Workout Router', () => {
         mockCreateWorkoutUseCase = new MockCreateWorkoutUseCase;
         mockUpdateWorkoutUseCase = new MockUpdateWorkoutUseCase;
         mockDeleteWorkoutUseCase = new MockDeleteWorkoutUseCase;
-        server.use('/workouts', WorkoutRouter(mockGetAllWorkoutsUseCase, mockGetOneWorkoutUseCase, mockCreateWorkoutUseCase, mockUpdateWorkoutUseCase, mockDeleteWorkoutUseCase))
+        server.use('/workouts', WorkoutsRouter(mockGetAllWorkoutsUseCase, mockGetOneWorkoutUseCase, mockCreateWorkoutUseCase, mockUpdateWorkoutUseCase, mockDeleteWorkoutUseCase))
     });
 
     beforeEach(() => {
