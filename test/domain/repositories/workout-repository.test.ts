@@ -48,7 +48,7 @@ describe('Workout Repository', () => {
     }
 
     const expectedData = {
-        id: "1",
+        _id: "6375143efefbca103232f1ff",
         name: "Tommy V",
         mode: "For Time",
         equipment: [
@@ -132,7 +132,7 @@ describe('Workout Repository', () => {
             }
 
             const updatedData = {
-                id: "1",
+                _id: "6375143efefbca103232f1ff",
                 name: "Tommy V Updated",
                 mode: "For Time",
                 equipment: [

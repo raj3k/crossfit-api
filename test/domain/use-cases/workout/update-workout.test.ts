@@ -54,7 +54,7 @@ describe('Update Workout Use Case', () => {
         }
 
         const expectedResult = {
-            id: "1",
+            _id: "6375143efefbca103232f1ff",
             name: "Tommy V",
             mode: "For Time",
             equipment: [

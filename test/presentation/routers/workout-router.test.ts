@@ -62,7 +62,7 @@ describe('Workout Router', () => {
     describe('GET /workouts', () => {
         test('should return 200 with data', async () => {
             const expectedData = [{
-                id: "1",
+                _id: "6375143efefbca103232f1ff",
                 name: "Tommy V",
                 mode: "For Time",
                 equipment: [
@@ -213,7 +213,7 @@ describe('Workout Router', () => {
             };
 
             const expectedData = {
-                id: "1",
+                _id: "6375143efefbca103232f1ff",
                 name: "Tommy V changed",
                 mode: "For Time",
                 equipment: [

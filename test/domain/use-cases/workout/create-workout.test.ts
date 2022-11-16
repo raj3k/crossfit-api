@@ -29,7 +29,7 @@ describe('Create Workout Use Case', () => {
         mockWorkoutRepository = new MockWorkoutRepository();
     });
 
-    test('should make deleteWorkout call on workout repo and return newly created workout', async () => {
+    test('should make createWorkout call on workout repo and return newly created workout', async () => {
         const inputData = {
             name: "Tommy V updated",
             mode: "For Time",
@@ -53,7 +53,7 @@ describe('Create Workout Use Case', () => {
         }
 
         const expectedResult = {
-            id: "1",
+            _id: "6375143efefbca103232f1ff",
             name: "Tommy V",
             mode: "For Time",
             equipment: [

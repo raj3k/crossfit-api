@@ -32,7 +32,7 @@ describe('Get One Workout Use Case', () => {
 
     test('should return data', async () => {
         const expectedResult = {
-            id: "1",
+            _id: "6375143efefbca103232f1ff",
             name: "Tommy V",
             mode: "For Time",
             equipment: [
