@@ -6,7 +6,7 @@ import { CreateWorkoutUseCase } from '@/domain/interfaces/use-cases/workout/crea
 import { UpdateWorkoutUseCase } from '@/domain/interfaces/use-cases/workout/update-workout-use-case';
 import { DeleteWorkoutUseCase } from '@/domain/interfaces/use-cases/workout/delete-workout-use-case';
 
-export default function WorkoutsRouter(
+export function WorkoutsRouter(
     getAllWorkoutsUseCase: GetAllWorkoutsUseCase,
     getOneWorkoutUseCase: GetOneWorkoutUseCase,
     createWorkoutUseCase: CreateWorkoutUseCase,
