@@ -51,6 +51,7 @@
   },
   "_moduleAliases": {
     "@/data": "dist/data",
-    "@/domain": "dist/domain"
+    "@/domain": "dist/domain",
+    "@/utils": "dist/utils"
   }
 }
