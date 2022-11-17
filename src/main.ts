@@ -1,3 +1,4 @@
+import { validateEnv } from './utils/validateEnv';
 import 'module-alias/register';
 import server from './server';
 import mongoose from 'mongoose';
@@ -12,8 +13,10 @@ import { WorkoutRepositoryImpl } from '@/domain/repositories/workout-repository'
 import { MongoDBWorkoutDataSource } from '@/data/data-sources/mongodb/mongodb-workout-data-source';
 import { WorkoutModel } from '@/domain/models/workout';
 
+dotenv.config();
+validateEnv();
+
 (async () => {
-    dotenv.config();
     mongoose.connect(`${process.env.DATABASE_URL}`);
 
     const workoutMiddleWare = WorkoutsRouter(
@@ -24,6 +27,6 @@ import { WorkoutModel } from '@/domain/models/workout';
         new DeleteWorkout(new WorkoutRepositoryImpl(new MongoDBWorkoutDataSource(WorkoutModel)))
     )
 
-    server.use('/workouts', workoutMiddleWare);
+    server.use('api/workouts', workoutMiddleWare);
     server.listen(process.env.PORT || 4000, () => console.log('Running on server'));
 })();
