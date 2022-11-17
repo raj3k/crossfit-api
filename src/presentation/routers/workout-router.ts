@@ -1,3 +1,4 @@
+import { HttpException } from '@/utils/exceptions/http-exception';
 import express from 'express';
 import { Request, Response, NextFunction } from 'express';
 import { GetAllWorkoutsUseCase } from '@/domain/interfaces/use-cases/workout/get-all-workouts-use-case';
@@ -24,7 +25,7 @@ export function WorkoutsRouter(
                 data: workouts
             });
         } catch (error) {
-            res.status(500).send({message: 'Error fetching data'});
+            next(new HttpException(500, 'Error fetching data'));
         }
     });
     
@@ -38,7 +39,7 @@ export function WorkoutsRouter(
                 data: workout
             });
         } catch (error) {
-            res.status(500).send({message: 'Error fetching data'});
+            next(new HttpException(500, 'Error fetching data'));
         }
     });
 
@@ -52,7 +53,7 @@ export function WorkoutsRouter(
                 data: createdWorkout
             });
         } catch (error) {
-            res.status(500).send({message: 'Error creating data'});
+            next(new HttpException(500, 'Error creating workout'));
         }
     });
 
@@ -66,7 +67,7 @@ export function WorkoutsRouter(
                 data: updatedWorkout
             });
         } catch (error) {
-            res.status(500).send({message: 'Error updating data'});
+            next(new HttpException(500, 'Error updating workout'));
         }
     });
 
@@ -79,7 +80,7 @@ export function WorkoutsRouter(
                 message: 'Workout deleted successfully',
             })
         } catch (error) {
-            res.status(500).send({message: 'Error fetching data'});
+            next(new HttpException(500, 'Error deleting workout'));
         }
     });
 
