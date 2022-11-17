@@ -33,6 +33,9 @@ export function WorkoutsRouter(
         try {
             const { workoutId } = req.params;
             const workout = await getOneWorkoutUseCase.execute(workoutId);
+            if (!workout) {
+                next(new HttpException(404, 'Workout not found'))
+            }
             res.send({
                 status: 'OK', 
                 message: 'Workout retrieved successfully', 

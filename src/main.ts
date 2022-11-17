@@ -1,3 +1,4 @@
+import { errorMiddleware } from './utils/middleware/error-middleware';
 import { validateEnv } from './utils/validateEnv';
 import 'module-alias/register';
 import server from './server';
@@ -28,5 +29,6 @@ validateEnv();
     )
 
     server.use('/api/workouts', workoutMiddleWare);
+    server.use(errorMiddleware);
     server.listen(process.env.PORT || 4000, () => console.log('Running on server'));
 })();
