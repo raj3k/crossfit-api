@@ -9,8 +9,8 @@ export class UpdateWorkout implements UpdateWorkoutUseCase {
         this.workoutRepository = workoutRepository;
     }
     
-    execute(id: string, data: WorkoutRequestModel): Promise<WorkoutResponseModel | null> {
-        const result = this.workoutRepository.updateWorkout(id, data);
+    async execute(id: string, data: WorkoutRequestModel): Promise<WorkoutResponseModel | null> {
+        const result = await this.workoutRepository.updateWorkout(id, data);
         return result;
     }
 }
