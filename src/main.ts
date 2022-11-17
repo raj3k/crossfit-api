@@ -27,6 +27,6 @@ validateEnv();
         new DeleteWorkout(new WorkoutRepositoryImpl(new MongoDBWorkoutDataSource(WorkoutModel)))
     )
 
-    server.use('api/workouts', workoutMiddleWare);
+    server.use('/api/workouts', workoutMiddleWare);
     server.listen(process.env.PORT || 4000, () => console.log('Running on server'));
 })();
