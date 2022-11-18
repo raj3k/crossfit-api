@@ -1,4 +1,3 @@
-import { HttpException } from '@/utils/exceptions/http-exception';
 import express from 'express';
 import { Request, Response, NextFunction } from 'express';
 import { GetAllWorkoutsUseCase } from '@/domain/interfaces/use-cases/workout/get-all-workouts-use-case';
@@ -6,6 +5,7 @@ import { GetOneWorkoutUseCase } from '@/domain/interfaces/use-cases/workout/get-
 import { CreateWorkoutUseCase } from '@/domain/interfaces/use-cases/workout/create-workout-use-case';
 import { UpdateWorkoutUseCase } from '@/domain/interfaces/use-cases/workout/update-workout-use-case';
 import { DeleteWorkoutUseCase } from '@/domain/interfaces/use-cases/workout/delete-workout-use-case';
+import { HttpException } from '@/utils/exceptions/http-exception';
 
 export function WorkoutsRouter(
     getAllWorkoutsUseCase: GetAllWorkoutsUseCase,

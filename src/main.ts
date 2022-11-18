@@ -1,9 +1,12 @@
-import { errorMiddleware } from './utils/middleware/error-middleware';
-import { validateEnv } from './utils/validateEnv';
 import 'module-alias/register';
+
 import server from './server';
 import mongoose from 'mongoose';
 import * as dotenv from 'dotenv';
+
+import { errorMiddleware } from '@/utils/middleware/error-middleware';
+import { validateEnv } from '@/utils/validateEnv';
+
 import { WorkoutsRouter } from './presentation/routers/workout-router';
 import { GetAllWorkouts } from '@/domain/use-cases/workout/get-all-workouts';
 import { GetOneWorkout } from '@/domain/use-cases/workout/get-one-workout';
