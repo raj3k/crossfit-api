@@ -24,8 +24,8 @@ export function WorkoutsRouter(
                 message: 'Workouts retrieved successfully',
                 data: workouts
             });
-        } catch (error) {
-            next(new HttpException(500, 'Error fetching data'));
+        } catch (error: any) {
+            next(new HttpException(error.status, error.message));
         }
     });
     
@@ -34,15 +34,17 @@ export function WorkoutsRouter(
             const { workoutId } = req.params;
             const workout = await getOneWorkoutUseCase.execute(workoutId);
             if (!workout) {
-                next(new HttpException(404, 'Workout not found'))
+                let error: any = new Error(`workout with id: ${workoutId} don't exist`);
+                error.status = 404
+                throw error
             }
             res.send({
                 status: 'OK', 
                 message: 'Workout retrieved successfully', 
                 data: workout
             });
-        } catch (error) {
-            next(new HttpException(500, 'Error fetching data'));
+        } catch (error: any) {
+            next(new HttpException(error.status, error.message));
         }
     });
 
@@ -55,8 +57,8 @@ export function WorkoutsRouter(
                 message: 'Workout created successfully', 
                 data: createdWorkout
             });
-        } catch (error) {
-            next(new HttpException(500, 'Error creating workout'));
+        } catch (error: any) {
+            next(new HttpException(error.status, error.message));
         }
     });
 
@@ -64,13 +66,18 @@ export function WorkoutsRouter(
         try {
             const { body, params: { workoutId } } = req;
             const updatedWorkout = await updateWorkoutUseCase.execute(workoutId, body);
+            if (!updatedWorkout) {
+                let error: any = new Error(`workout with id: ${workoutId} don't exist`);
+                error.status = 404
+                throw error
+            }
             res.send({
                 status: 'OK', 
                 message: 'Workout updated successfully', 
                 data: updatedWorkout
             });
-        } catch (error) {
-            next(new HttpException(500, 'Error updating workout'));
+        } catch (error: any) {
+            next(new HttpException(error.status, error.message));
         }
     });
 
@@ -82,8 +89,8 @@ export function WorkoutsRouter(
                 status: 'OK',
                 message: 'Workout deleted successfully',
             })
-        } catch (error) {
-            next(new HttpException(500, 'Error deleting workout'));
+        } catch (error: any) {
+            next(new HttpException(error.status, error.message));
         }
     });
 
