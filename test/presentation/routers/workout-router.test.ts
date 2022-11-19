@@ -52,14 +52,14 @@ describe('Workout Router', () => {
         mockCreateWorkoutUseCase = new MockCreateWorkoutUseCase;
         mockUpdateWorkoutUseCase = new MockUpdateWorkoutUseCase;
         mockDeleteWorkoutUseCase = new MockDeleteWorkoutUseCase;
-        server.use('/workouts', WorkoutsRouter(mockGetAllWorkoutsUseCase, mockGetOneWorkoutUseCase, mockCreateWorkoutUseCase, mockUpdateWorkoutUseCase, mockDeleteWorkoutUseCase))
+        server.use('/api/workouts', WorkoutsRouter(mockGetAllWorkoutsUseCase, mockGetOneWorkoutUseCase, mockCreateWorkoutUseCase, mockUpdateWorkoutUseCase, mockDeleteWorkoutUseCase))
     });
 
     beforeEach(() => {
         jest.clearAllMocks();
     });
 
-    describe('GET /workouts', () => {
+    describe('GET /api/workouts', () => {
         test('should return 200 with data', async () => {
             const expectedData = [{
                 _id: "6375143efefbca103232f1ff",
@@ -88,23 +88,22 @@ describe('Workout Router', () => {
 
             jest.spyOn(mockGetAllWorkoutsUseCase, "execute").mockImplementation(() => Promise.resolve(expectedData));
 
-            const response = await request(server).get('/workouts');
+            const response = await request(server).get('/api/workouts');
 
             expect(response.status).toBe(200);
             expect(mockGetAllWorkoutsUseCase.execute).toBeCalledTimes(1);
             expect(response.body.data).toStrictEqual(expectedData);
         });
 
-        test('GET /workouts returns 500 on use case error', async () => {
+        test('GET /api/workouts returns 500 on use case error', async () => {
             jest.spyOn(mockGetAllWorkoutsUseCase, 'execute').mockImplementation(() => Promise.reject(Error()));
-            const response = await request(server).get('/workouts');
+            const response = await request(server).get('/api/workouts');
             expect(response.status).toBe(500);
-            expect(response.body).toStrictEqual({message: 'Error fetching data'});
         });
     });
 
-    describe('GET /workouts/:workoutId', () => {
-        test('GET /workouts/:workoutId', async () => {
+    describe('GET /api/workouts/:workoutId', () => {
+        test('GET /api/workouts/:workoutId', async () => {
             const expectedData = {
                 id: "1",
                 name: "Tommy V",
@@ -132,7 +131,7 @@ describe('Workout Router', () => {
 
             jest.spyOn(mockGetOneWorkoutUseCase, "execute").mockImplementation(() => Promise.resolve(expectedData));
 
-            const response = await request(server).get('/workouts/1');
+            const response = await request(server).get('/api/workouts/1');
 
             expect(response.status).toBe(200);
             expect(mockGetOneWorkoutUseCase.execute).toBeCalledTimes(1);
@@ -141,14 +140,19 @@ describe('Workout Router', () => {
         
         test('GET /workouts/:workoutId returns 500 on use case error', async () => {
             jest.spyOn(mockGetOneWorkoutUseCase, 'execute').mockImplementation(() => Promise.reject(Error()));
-            const response = await request(server).get('/workouts/1');
+            const response = await request(server).get('/api/workouts/1');
             expect(response.status).toBe(500);
-            expect(response.body).toStrictEqual({message: 'Error fetching data'});
         });
+
+        test('GET /api/workouts/:workoutId returns 404', async () => {
+            jest.spyOn(mockGetOneWorkoutUseCase, 'execute').mockImplementation().mockResolvedValue(null);
+            const response = await request(server).get('/api/workouts/1');
+            expect(response.status).toBe(404);
+        })
     });
 
-    describe('POST /workouts', () => {
-        test('POST /workouts', async () => {
+    describe('POST /api/workouts', () => {
+        test('POST /api/workouts', async () => {
             const inputData = {
                 name: "Tommy V",
                 mode: "For Time",
@@ -173,11 +177,11 @@ describe('Workout Router', () => {
         
             jest.spyOn(mockCreateWorkoutUseCase, 'execute').mockImplementation(() => Promise.resolve(inputData));
 
-            const response = await request(server).post('/workouts').send(inputData);
+            const response = await request(server).post('/api/workouts').send(inputData);
             expect(response.status).toBe(201);
         });
 
-        test('POST /workouts returns 500 on use case error', async () => {
+        test('POST /api/workouts returns 500 on use case error', async () => {
             const inputData = {
                 name: "Tommy V",
                 mode: "For Time",
@@ -201,13 +205,13 @@ describe('Workout Router', () => {
             };
 
             jest.spyOn(mockCreateWorkoutUseCase, 'execute').mockImplementation(() => Promise.reject(Error()));
-            const response = await request(server).post('/workouts').send(inputData);
+            const response = await request(server).post('/api/workouts').send(inputData);
             expect(response.status).toBe(500);
         });
     });
 
-    describe('PATCH /workouts/:workoutId', () => {
-        test('PATCH /workouts/:workoutId', async () => {
+    describe('PATCH /api/workouts/:workoutId', () => {
+        test('PATCH /api/workouts/:workoutId', async () => {
             const inputData = {
                 name: 'Tommy V changed'
             };
@@ -239,7 +243,7 @@ describe('Workout Router', () => {
 
             jest.spyOn(mockUpdateWorkoutUseCase, 'execute').mockImplementation(() => Promise.resolve(expectedData));
 
-            const response = await request(server).patch('/workouts/1').send(inputData);
+            const response = await request(server).patch('/api/workouts/1').send(inputData);
 
             expect(response.status).toBe(200);
             expect(response.body.message).toStrictEqual('Workout updated successfully');
@@ -247,34 +251,45 @@ describe('Workout Router', () => {
             expect(response.body.data).toStrictEqual(expectedData);
         });
 
-        test('PATCH /workouts/:workoutId should return 500 on use case error', async () => {
+        test('PATCH /api/workouts/:workoutId should return 500 on use case error', async () => {
             const inputData = {
                 name: 'Tommy V changed'
             };
 
             jest.spyOn(mockUpdateWorkoutUseCase, 'execute').mockImplementation(() => Promise.reject(Error()));
 
-            const response = await request(server).patch('/workouts/1').send(inputData);
+            const response = await request(server).patch('/api/workouts/1').send(inputData);
 
             expect(response.status).toBe(500);
             expect(mockUpdateWorkoutUseCase.execute).toBeCalledTimes(1);
         });
+
+        test('PATCH /api/workouts/:workoutId should return 404', async () => {
+            const inputData = {
+                name: 'Tommy V changed'
+            };
+            jest.spyOn(mockUpdateWorkoutUseCase, 'execute').mockImplementation(() => Promise.resolve(null));
+
+            const response = await request(server).patch('/api/workouts/1').send(inputData);
+
+            expect(response.status).toBe(404);
+        })
     });
 
-    describe('DELETE /workouts/:workoutId', () => {
-        test('DELETE /workouts/:workoutId', async () => {
+    describe('DELETE /api/workouts/:workoutId', () => {
+        test('DELETE /api/workouts/:workoutId', async () => {
             jest.spyOn(mockDeleteWorkoutUseCase, 'execute').mockImplementation();
 
-            const response = await request(server).delete('/workouts/1');
+            const response = await request(server).delete('/api/workouts/1');
 
             expect(response.status).toBe(204);
             expect(mockDeleteWorkoutUseCase.execute).toBeCalledTimes(1);
         });
 
-        test('DELETE /workouts/:workoutId should return 500 on use case error', async () => {
+        test('DELETE /api/workouts/:workoutId should return 500 on use case error', async () => {
             jest.spyOn(mockDeleteWorkoutUseCase, 'execute').mockImplementation(() => Promise.reject(Error()));
 
-            const response = await request(server).delete('/workouts/1');
+            const response = await request(server).delete('/api/workouts/1');
 
             expect(response.status).toBe(500);
             expect(mockDeleteWorkoutUseCase.execute).toBeCalledTimes(1);
