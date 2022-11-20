@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/raj3k/crossfit-api#readme",
   "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
     "@types/cors": "^2.8.12",
     "@types/express": "^4.17.14",
     "@types/jest": "^29.2.2",
@@ -41,6 +42,7 @@
     "typescript": "^4.8.4"
   },
   "dependencies": {
+    "bcrypt": "^5.1.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "envalid": "^7.3.1",
