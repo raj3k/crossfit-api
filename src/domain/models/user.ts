@@ -6,7 +6,7 @@ export interface User {
     lastName: string,
     dateOfBirth: string,
     email: string,
-    hashedPassword: string
+    password: string
 }
 
 const userSchema = new mongoose.Schema(
