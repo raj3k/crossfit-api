@@ -1,15 +1,20 @@
 import mongoose, { Document } from 'mongoose';
 import bcrypt from 'bcrypt';
 
-export interface User extends Document {
-    _id: string,
+export interface User {
     firstName: string,
     lastName: string,
     dateOfBirth: string,
     email: string,
-    password: string
+    password: string,
+}
 
-    isValidPassword(password: string): Promise<Error | boolean>
+export interface ResponseUser extends User {
+    _id: string,
+    createdAt: string;
+    updatedAt: string;
+
+    isValidPassword(password: string): Promise<Error | boolean>;
 }
 
 const userSchema = new mongoose.Schema(
@@ -18,7 +23,7 @@ const userSchema = new mongoose.Schema(
         lastName: { type: String, required: true },
         dateOfBirth: { type: String },
         email: { type: String, required: true, index: true },
-        hashedPassowrd: { type: String, required: true }
+        password: { type: String, required: true }
     },
     {
         timestamps: true,
@@ -26,7 +31,7 @@ const userSchema = new mongoose.Schema(
     }
 )
 
-userSchema.pre<User>('save', async function (next) {
+userSchema.pre('save', async function (next) {
     if (!this.isModified('password')) {
         return next()
     }
@@ -44,4 +49,4 @@ userSchema.methods.isValidPassword = async function (
     return await bcrypt.compare(password, this.password);
 };
 
-export const UserModel = mongoose.model<User>('User', userSchema);
+export const UserModel = mongoose.model<ResponseUser>('User', userSchema);
