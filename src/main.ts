@@ -16,6 +16,9 @@ import { DeleteWorkout } from '@/domain/use-cases/workout/delete-workout';
 import { WorkoutRepositoryImpl } from '@/domain/repositories/workout-repository';
 import { MongoDBWorkoutDataSource } from '@/data/data-sources/mongodb/mongodb-workout-data-source';
 import { WorkoutModel } from '@/domain/models/workout';
+import { AuthRouter } from '@/presentation/routers/auth-router';
+import { RegisterUser } from '@/domain/use-cases/auth/register-user';
+import { LoginUser } from '@/domain/use-cases/auth/login-user';
 
 dotenv.config();
 validateEnv();
@@ -31,7 +34,13 @@ validateEnv();
         new DeleteWorkout(new WorkoutRepositoryImpl(new MongoDBWorkoutDataSource(WorkoutModel)))
     )
 
+    const authMiddleware = AuthRouter(
+        new RegisterUser(),
+        new LoginUser()
+    )
+
     server.use('/api/workouts', workoutMiddleWare);
+    server.use('/api/auth', authMiddleware)
     server.use(errorMiddleware);
     server.listen(process.env.PORT || 4000, () => console.log('Running on server'));
 })();
