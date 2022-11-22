@@ -8,17 +8,25 @@ import { errorMiddleware } from '@/utils/middleware/error-middleware';
 import { validateEnv } from '@/utils/validateEnv';
 
 import { WorkoutsRouter } from '@/presentation/routers/workout-router';
+import { AuthRouter } from '@/presentation/routers/auth-router';
+
 import { GetAllWorkouts } from '@/domain/use-cases/workout/get-all-workouts';
 import { GetOneWorkout } from '@/domain/use-cases/workout/get-one-workout';
 import { CreateWorkout } from '@/domain/use-cases/workout/create-workout';
 import { UpdateWorkout } from '@/domain/use-cases/workout/update-workout';
 import { DeleteWorkout } from '@/domain/use-cases/workout/delete-workout';
-import { WorkoutRepositoryImpl } from '@/domain/repositories/workout-repository';
-import { MongoDBWorkoutDataSource } from '@/data/data-sources/mongodb/mongodb-workout-data-source';
-import { WorkoutModel } from '@/domain/models/workout';
-import { AuthRouter } from '@/presentation/routers/auth-router';
+
 import { RegisterUser } from '@/domain/use-cases/auth/register-user';
 import { LoginUser } from '@/domain/use-cases/auth/login-user';
+
+import { WorkoutRepositoryImpl } from '@/domain/repositories/workout-repository';
+import { UserRepositoryImpl } from '@/domain/repositories/user-repository';
+
+import { MongoDBWorkoutDataSource } from '@/data/data-sources/mongodb/mongodb-workout-data-source';
+import { MongoDBUserDataSource } from '@/data/data-sources/mongodb/mongodb-user-data-source';
+
+import { WorkoutModel } from '@/domain/models/workout';
+import { UserModel } from '@/domain/models/user';
 
 dotenv.config();
 validateEnv();
@@ -35,8 +43,8 @@ validateEnv();
     )
 
     const authMiddleware = AuthRouter(
-        new RegisterUser(),
-        new LoginUser()
+        new RegisterUser(new UserRepositoryImpl(new MongoDBUserDataSource(UserModel))),
+        new LoginUser(new UserRepositoryImpl(new MongoDBUserDataSource(UserModel)))
     )
 
     server.use('/api/workouts', workoutMiddleWare);
