@@ -1,12 +1,12 @@
 import { WorkoutDataSource } from '@/data/interfaces/data-sources/workout-data-source';
 import { WorkoutRequestModel, WorkoutResponseModel } from '@/domain/models/workout';
-import { MongooseWrokoutModelWrapper } from '@/data/interfaces/data-sources/mongoose-workout-model-wrapper';
+import { MongooseModelWrapper } from '@/data/interfaces/data-sources/mongoose-model-wrapper';
 
 export class MongoDBWorkoutDataSource implements WorkoutDataSource {
     
-    private db: MongooseWrokoutModelWrapper;
+    private db: MongooseModelWrapper;
 
-    constructor (db: MongooseWrokoutModelWrapper) {
+    constructor (db: MongooseModelWrapper) {
         this.db = db;
     }
 

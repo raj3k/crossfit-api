@@ -1,13 +1,14 @@
-import { MongooseWrokoutModelWrapper } from '../../../../src/data/interfaces/data-sources/mongoose-workout-model-wrapper';
+import { MongooseModelWrapper } from '../../../../src/data/interfaces/data-sources/mongoose-model-wrapper';
 import { MongoDBWorkoutDataSource } from './../../../../src/data/data-sources/mongodb/mongodb-workout-data-source';
 
 describe('MongoDB DataSource', () => {
-    let mockDatabase: MongooseWrokoutModelWrapper;
+    let mockDatabase: MongooseModelWrapper;
 
     beforeAll(() => {
         mockDatabase = {
             find: jest.fn(),
             findById: jest.fn(),
+            findOne: jest.fn(),
             create: jest.fn(),
             findByIdAndUpdate: jest.fn(),
             findByIdAndDelete: jest.fn()
