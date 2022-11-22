@@ -1,7 +1,7 @@
 import { MongooseModelWrapper } from '../../../../src/data/interfaces/data-sources/mongoose-model-wrapper';
 import { MongoDBWorkoutDataSource } from './../../../../src/data/data-sources/mongodb/mongodb-workout-data-source';
 
-describe('MongoDB DataSource', () => {
+describe('MongoDB Workout DataSource', () => {
     let mockDatabase: MongooseModelWrapper;
 
     beforeAll(() => {
