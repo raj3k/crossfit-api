@@ -62,7 +62,7 @@ export function WorkoutsRouter(
         }
     });
 
-    router.patch('/:workoutId', async (req: Request, res: Response, next: NextFunction) => {
+    router.put('/:workoutId', async (req: Request, res: Response, next: NextFunction) => {
         try {
             const { body, params: { workoutId } } = req;
             const updatedWorkout = await updateWorkoutUseCase.execute(workoutId, body);
