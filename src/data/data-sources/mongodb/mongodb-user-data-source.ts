@@ -8,13 +8,18 @@ export class MongoDBUserDataSource implements UserDataSource {
     constructor (db: MongooseModelWrapper) {
         this.db = db
     }
+    async getOneByEmail(email: string): Promise<ResponseUser> {
+        const result = await this.db.findOne({email: email})
+        return result;
+    }
+
+    async getOneById(id: string): Promise<ResponseUser | null> {
+        const result = await this.db.findOne({_id: id})
+        return result;
+    }
 
     async create(user: User): Promise<ResponseUser> {
         const result = await this.db.create(user);
-        return result;
-    }
-    async getOne(email: string): Promise<ResponseUser> {
-        const result = await this.db.findOne({email: email})
         return result;
     }
 }

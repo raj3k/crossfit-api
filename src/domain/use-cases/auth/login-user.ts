@@ -12,7 +12,7 @@ export class LoginUser implements LoginUserUseCase {
     }
 
     async execute(userCredentials: Pick<User, 'email' | 'password'>): Promise<string> {
-        const user = await this.userRepository.getUser(userCredentials.email);
+        const user = await this.userRepository.getUserByEmail(userCredentials.email);
 
         if (!user) {
             let error: any = new Error('Unable to find user with that email address');

@@ -9,6 +9,7 @@ import { validateEnv } from '@/utils/validateEnv';
 
 import { WorkoutsRouter } from '@/presentation/routers/workout-router';
 import { AuthRouter } from '@/presentation/routers/auth-router';
+import { UserRouter } from './presentation/routers/user-router';
 
 import { GetAllWorkouts } from '@/domain/use-cases/workout/get-all-workouts';
 import { GetOneWorkout } from '@/domain/use-cases/workout/get-one-workout';
@@ -19,6 +20,8 @@ import { DeleteWorkout } from '@/domain/use-cases/workout/delete-workout';
 import { RegisterUser } from '@/domain/use-cases/auth/register-user';
 import { LoginUser } from '@/domain/use-cases/auth/login-user';
 
+import { GetOneUser } from '@/domain/use-cases/user/get-one-user';
+
 import { WorkoutRepositoryImpl } from '@/domain/repositories/workout-repository';
 import { UserRepositoryImpl } from '@/domain/repositories/user-repository';
 
@@ -27,6 +30,7 @@ import { MongoDBUserDataSource } from '@/data/data-sources/mongodb/mongodb-user-
 
 import { WorkoutModel } from '@/domain/models/workout';
 import { UserModel } from '@/domain/models/user';
+
 
 dotenv.config();
 validateEnv();
@@ -47,8 +51,13 @@ validateEnv();
         new LoginUser(new UserRepositoryImpl(new MongoDBUserDataSource(UserModel)))
     )
 
+    const userMiddleware = UserRouter(
+        new GetOneUser(new UserRepositoryImpl(new MongoDBUserDataSource(UserModel)))
+    )
+
     server.use('/api/workouts', workoutMiddleWare);
-    server.use('/api/auth', authMiddleware)
+    server.use('/api/auth', authMiddleware);
+    server.use('/api/users', userMiddleware);
     server.use(errorMiddleware);
     server.listen(process.env.PORT || 4000, () => console.log('Running on server'));
 })();
