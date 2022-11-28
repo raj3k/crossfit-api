@@ -14,7 +14,7 @@ export class MongoDBUserDataSource implements UserDataSource {
     }
 
     async getOneById(id: string): Promise<ResponseUser | null> {
-        const result = await this.db.findOne({_id: id})
+        const result = await this.db.findOne({_id: id}).select('-password');
         return result;
     }
 
